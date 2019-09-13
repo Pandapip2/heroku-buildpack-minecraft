@@ -18,6 +18,13 @@ export_env_dir() {
     done
   fi
 }
+# Modification #1: Install python & B2
+apt-get update -y
+apy-get install python -y
+git clone https://github.com/Backblaze/B2_Command_Line_Tool.git
+cd B2_Command_Line_Tool
+python setup.py install
+# End modification #1
 
 BP_DIR="$(cd "$(dirname "$0")" && pwd)"
 BUILD_DIR=$1
