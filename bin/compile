@@ -2,6 +2,14 @@
 
 set -eu
 
+# Modification #2: backup on sigterm
+exit_script() {
+    # TODO do backup
+}
+
+trap exit_script SIGINT SIGTERM
+# End modificcation #2
+
 indent() {
   sed -u 's/^/       /'
 }
@@ -57,6 +65,8 @@ export PKG_CONFIG_PATH="\$HOME/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:\$HOME/.a
 export PYTHONPATH="\$HOME/.apt/usr/lib/python2.7/dist-packages"
 export SCREENDIR="\$HOME/.apt/var/run/screen"
 EOF
+
+cat <<EOF >$BUILD_DIR/backupd
 
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   dpkg -x $DEB $BUILD_DIR/.apt/
